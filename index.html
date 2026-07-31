@@ -45,10 +45,30 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#FF6B2B;border-radius:99px}
 
-/* reveal on scroll */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
-.reveal.in{opacity:1;transform:none}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+/* reveal on scroll & section soft fade-in */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px) scale(0.96);
+  filter: blur(2px);
+  transition: opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1), filter .75s cubic-bezier(.16,1,.3,1);
+  will-change: opacity, transform, filter;
+}
+.reveal.in, .reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+.section-fade {
+  opacity: 0;
+  transform: translateY(38px) scale(0.98);
+  transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+  will-change: opacity, transform;
+}
+.section-fade.in, .section-fade.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}
 
 /* nav underline animation */
 .nl{position:relative}
@@ -65,18 +85,133 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .pf{overflow:hidden;background:#d4d4d8}
 .pf img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* card hover */
-.card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
-.card-h:hover{transform:translateY(-4px)}
+/* card hover & entrance enhancement */
+.card-h, article {
+  will-change: transform, box-shadow, border-color;
+}
+.card-h {
+  transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .22s ease, box-shadow .35s cubic-bezier(.16,1,.3,1);
+}
+.card-h:hover {
+  transform: translateY(-6px) scale(1.01);
+}
 
-/* skill tag */
-.stag{transition:border-color .18s}
+/* skill tag micro-interaction bounce & grow on scroll */
+.stag {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.7) translateY(12px);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+  will-change: transform, opacity;
+}
+
+.reveal.in .stag, .reveal.visible .stag, .stag.in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Staggered delay for spring bounce */
+.reveal.in .stag:nth-child(1),  .stag.in:nth-child(1)  { transition-delay: 0.05s; }
+.reveal.in .stag:nth-child(2),  .stag.in:nth-child(2)  { transition-delay: 0.10s; }
+.reveal.in .stag:nth-child(3),  .stag.in:nth-child(3)  { transition-delay: 0.15s; }
+.reveal.in .stag:nth-child(4),  .stag.in:nth-child(4)  { transition-delay: 0.20s; }
+.reveal.in .stag:nth-child(5),  .stag.in:nth-child(5)  { transition-delay: 0.25s; }
+.reveal.in .stag:nth-child(6),  .stag.in:nth-child(6)  { transition-delay: 0.30s; }
+.reveal.in .stag:nth-child(7),  .stag.in:nth-child(7)  { transition-delay: 0.35s; }
+.reveal.in .stag:nth-child(8),  .stag.in:nth-child(8)  { transition-delay: 0.40s; }
+.reveal.in .stag:nth-child(9),  .stag.in:nth-child(9)  { transition-delay: 0.45s; }
+.reveal.in .stag:nth-child(10), .stag.in:nth-child(10) { transition-delay: 0.50s; }
+.reveal.in .stag:nth-child(11), .stag.in:nth-child(11) { transition-delay: 0.55s; }
+.reveal.in .stag:nth-child(12), .stag.in:nth-child(12) { transition-delay: 0.60s; }
+
+/* Interactive Hover state */
+.stag:hover {
+  transform: scale(1.1) translateY(-3px) !important;
+  border-color: #FF6B2B !important;
+  box-shadow: 0 6px 16px rgba(255, 107, 43, 0.25);
+  transition-delay: 0s !important;
+}
+
+/* Interactive cursor glow background */
+#mouse-glow {
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 43, 0.12), rgba(255, 143, 92, 0.04) 40%, transparent 80%);
+}
+.dark #mouse-glow {
+  background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 43, 0.18), rgba(168, 85, 247, 0.08) 45%, transparent 80%);
+}
 
 [x-cloak]{display:none!important}
 </style>
+<script>
+  if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
 </head>
 
-<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased">
+<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased relative">
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="app-loader" class="fixed inset-0 z-[100] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+  <div class="relative flex flex-col items-center">
+    <div class="relative w-20 h-20 flex items-center justify-center mb-5">
+      <div class="absolute inset-0 rounded-full bg-accent/25 animate-ping"></div>
+      <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-accent/40 shadow-xl shadow-accent/20 ring-4 ring-zinc-100 dark:ring-zinc-900">
+        <img src="image.png" alt="Nimesh Kavindya" class="w-full h-full object-cover">
+      </div>
+    </div>
+    <div class="flex items-center gap-2 mb-4">
+      <span class="font-display font-bold text-lg text-zinc-900 dark:text-white tracking-wide">Nimesh Kavindya</span>
+      <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+    </div>
+    <div class="w-44 h-1.5 bg-zinc-100 dark:bg-zinc-800/80 rounded-full overflow-hidden p-0.5 shadow-inner">
+      <div id="loader-progress" class="h-full bg-accent rounded-full w-0 transition-all duration-500 ease-out"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const loader = document.getElementById('app-loader');
+  const progress = document.getElementById('loader-progress');
+  if (!loader || !progress) return;
+  
+  setTimeout(() => { if (progress) progress.style.width = '25%'; }, 50);
+  setTimeout(() => { if (progress) progress.style.width = '60%'; }, 400);
+  setTimeout(() => { if (progress) progress.style.width = '85%'; }, 900);
+
+  function finishLoader() {
+    if (!progress || !loader) return;
+    progress.style.width = '100%';
+    setTimeout(() => {
+      loader.classList.add('opacity-0', 'pointer-events-none', 'scale-105');
+      setTimeout(() => {
+        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 550);
+    }, 350);
+  }
+
+  // Ensure loader stays visible for at least ~1.4 seconds for smooth animation
+  const minDuration = 1400;
+  const startTime = Date.now();
+
+  function triggerFinish() {
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, minDuration - elapsed);
+    setTimeout(finishLoader, remaining);
+  }
+
+  if (document.readyState === 'complete') {
+    triggerFinish();
+  } else {
+    window.addEventListener('load', triggerFinish);
+    setTimeout(triggerFinish, 2000);
+  }
+})();
+</script>
+
+<canvas id="glow-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-60 dark:opacity-85 transition-opacity duration-500"></canvas>
+<div id="mouse-glow" class="fixed inset-0 pointer-events-none z-0 transition-opacity duration-500"></div>
 
 <!-- ═══ NAV ═══ -->
 <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
@@ -132,7 +267,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <main>
 
 <!-- ═══ HERO ═══ -->
-<section id="hero" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+<section id="hero" class="section-fade relative min-h-screen flex items-center pt-16 overflow-hidden">
   <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
   <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-200/50 dark:bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
@@ -141,11 +276,11 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
       <div>
         <p class="reveal text-sm font-medium text-accent tracking-widest uppercase mb-4">Available for work</p>
-        <h1 class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-6">
-          Hi, I'm <span class="text-accent">Kavindya</span>
+        <h1 class="reveal d1 font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.08] tracking-tight text-zinc-900 dark:text-white mb-6">
+          Hi, I'm <span class="text-accent">Nimesh Kavindya</span>
         </h1>
-        <p class="reveal d2 text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-md mb-10">
-          <strong class="font-medium text-zinc-700 dark:text-zinc-300">BSc (Hons) Information Systems Undergraduate</strong> at Sabaragamuwa University of Sri Lanka. Driven by curiosity, powered by code.
+        <p class="reveal d2 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed max-w-xl mb-10">
+          BSc ( Hons ) Information Systems Undergraduate at Sabaragamuwa University Of Sri Lanka <span class="text-accent font-semibold">|</span> Former School Leaver Intern at Bank of Ceylon <span class="text-accent font-semibold">|</span> UI/UX &amp; Creative Design Enthusiast
         </p>
         <div class="reveal d3 flex flex-wrap gap-4">
           <a href="#work" class="shimmer inline-flex items-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-sm">
@@ -153,13 +288,17 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </a>
           <a href="#contact" class="inline-flex items-center gap-2 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm">Get in touch</a>
+          <a href="cv.pdf" download="Nimesh_Kavindya_CV.pdf" target="_blank" class="inline-flex items-center gap-2 bg-accent/10 hover:bg-accent/20 border border-accent/30 text-accent font-medium px-7 py-3.5 rounded-full transition-all text-sm group">
+            <svg class="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download CV
+          </a>
         </div>
       </div>
 
       <div class="reveal d2 flex justify-center md:justify-end">
         <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
           <div class="pf w-full h-full rounded-3xl">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Eliott — Freelance UI/UX Designer" loading="eager">
+            <img src="image.png" alt="Nimesh Kavindya — Information Systems Undergraduate" loading="eager">
           </div>
           <div class="absolute -bottom-4 -left-4 bg-accent text-white font-display font-bold text-sm px-4 py-2.5 rounded-2xl shadow-lg">Open to projects</div>
         </div>
@@ -170,36 +309,110 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 </section>
 
 <!-- ═══ SERVICES ═══ -->
-<section id="services" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="mb-14">
-      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">What I do</p>
-      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">Services</h2>
+<section id="services" class="section-fade py-24 bg-zinc-50/50 dark:bg-zinc-900/30 relative overflow-hidden">
+  <!-- Subtle decorative background ambient glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-medium mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent"></span> What I offer
+        </div>
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white tracking-tight">Services &amp; Expertise</h2>
+      </div>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400 max-w-md leading-relaxed">
+        Crafting end-to-end digital experiences through robust backend engineering, responsive frontend web design, and data-driven analysis.
+      </p>
     </div>
-    <div class="grid md:grid-cols-3 gap-6">
 
-      <article class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
-        <div class="w-12 h-12 flex items-center justify-center bg-orange-50 dark:bg-zinc-800 rounded-xl mb-6 group-hover:bg-accent/10 transition-colors">
-          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg>
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1: Software Development -->
+      <article class="reveal d1 group relative bg-white dark:bg-zinc-900/90 backdrop-blur-sm rounded-3xl p-8 border border-zinc-200/80 dark:border-zinc-800 hover:border-accent/50 shadow-sm hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+        <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent/0 group-hover:via-accent/60 to-transparent transition-all duration-500"></div>
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-14 h-14 flex items-center justify-center bg-orange-500/10 dark:bg-accent/10 rounded-2xl text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-inner">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <span class="font-display font-bold text-2xl text-zinc-200 dark:text-zinc-800 group-hover:text-accent/40 transition-colors">01</span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3 group-hover:text-accent transition-colors">
+            Software Development
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+            Building clean, efficient, and scalable software solutions using Object-Oriented principles. Experienced in Java and Python for creating robust backend applications, APIs, and automation scripts.
+          </p>
         </div>
-        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-3">Software Development</h3>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Building clean, efficient software solutions using Object-Oriented principles. Experienced in Java and Python for creating scalable backend applications and scripts.</p>
+
+        <div>
+          <div class="flex flex-wrap gap-2 pt-6 border-t border-zinc-100 dark:border-zinc-800/80">
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Java</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Python</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">OOP</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Clean Code</span>
+          </div>
+        </div>
       </article>
 
-      <article class="reveal d2 card-h group bg-zinc-900 dark:bg-zinc-800 rounded-2xl p-8 border border-zinc-800 hover:border-accent">
-        <div class="w-12 h-12 flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 rounded-xl mb-6 group-hover:bg-accent/20 transition-colors">
-          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+      <!-- Card 2: Web Technologies -->
+      <article class="reveal d2 group relative bg-white dark:bg-zinc-900/90 backdrop-blur-sm rounded-3xl p-8 border border-zinc-200/80 dark:border-zinc-800 hover:border-accent/50 shadow-sm hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+        <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent/0 group-hover:via-accent/60 to-transparent transition-all duration-500"></div>
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-14 h-14 flex items-center justify-center bg-orange-500/10 dark:bg-accent/10 rounded-2xl text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-inner">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg>
+            </div>
+            <span class="font-display font-bold text-2xl text-zinc-200 dark:text-zinc-800 group-hover:text-accent/40 transition-colors">02</span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3 group-hover:text-accent transition-colors">
+            Web Technologies
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+            Developing responsive, high-performance, and interactive websites using HTML5, CSS3, JavaScript, and Tailwind CSS. Designing intuitive UI/UX prototypes and high-fidelity wireframes using Figma.
+          </p>
         </div>
-        <h3 class="font-display font-bold text-xl text-white mb-3">Web Technologies</h3>
-        <p class="text-sm text-zinc-400 leading-relaxed">Developing responsive and interactive websites with HTML5, CSS3, JavaScript, and Tailwind CSS. Designing intuitive UI/UX experiences using Figma.</p>
+
+        <div>
+          <div class="flex flex-wrap gap-2 pt-6 border-t border-zinc-100 dark:border-zinc-800/80">
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">JavaScript</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Tailwind CSS</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">HTML5/CSS3</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">Figma</span>
+          </div>
+        </div>
       </article>
 
-      <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
-        <div class="w-12 h-12 flex items-center justify-center bg-orange-50 dark:bg-zinc-800 rounded-xl mb-6 group-hover:bg-accent/10 transition-colors">
-          <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+      <!-- Card 3: Data & Systems Analysis -->
+      <article class="reveal d3 group relative bg-white dark:bg-zinc-900/90 backdrop-blur-sm rounded-3xl p-8 border border-zinc-200/80 dark:border-zinc-800 hover:border-accent/50 shadow-sm hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+        <div class="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent/0 group-hover:via-accent/60 to-transparent transition-all duration-500"></div>
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-14 h-14 flex items-center justify-center bg-orange-500/10 dark:bg-accent/10 rounded-2xl text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-inner">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+            </div>
+            <span class="font-display font-bold text-2xl text-zinc-200 dark:text-zinc-800 group-hover:text-accent/40 transition-colors">03</span>
+          </div>
+
+          <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-3 group-hover:text-accent transition-colors">
+            Data &amp; Systems Analysis
+          </h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
+            Analyzing complex workflows and modeling structured databases with SQL, MySQL, and PostgreSQL. Translating business requirements into logical system architectures and UML diagrams.
+          </p>
         </div>
-        <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-3">Data Analytics</h3>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">Analyzing workflows and modeling data with SQL, MySQL/PostgreSQL, and Excel. Translating complex business requirements into logical system designs and UML diagrams.</p>
+
+        <div>
+          <div class="flex flex-wrap gap-2 pt-6 border-t border-zinc-100 dark:border-zinc-800/80">
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">MySQL/PostgreSQL</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">SQL</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">UML Modeling</span>
+            <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3 py-1 rounded-full">System Analysis</span>
+          </div>
+        </div>
       </article>
 
     </div>
@@ -207,49 +420,69 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 </section>
 
 <!-- ═══ WORK ═══ -->
-<section id="work" class="py-24">
+<section id="work" class="section-fade py-20 md:py-24">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 md:mb-14">
       <div>
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Portfolio</p>
-        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">Selected work</h2>
+        <h2 class="reveal d1 font-display font-bold text-3xl sm:text-4xl md:text-5xl text-zinc-900 dark:text-white">Selected work</h2>
       </div>
-      <a href="projects.html" class="reveal d1 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors self-start sm:self-auto nl">All projects →</a>
+      <a href="projects.html" class="reveal d1 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors self-start sm:self-auto nl">All projects →</a>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 
-      <article class="card-h reveal d1 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
-        <div class="pf w-full h-64 md:h-80">
-          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=900&q=80" alt="FinPluse Expenses Tracker" loading="lazy">
-        </div>
-        <div class="p-7">
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">App</span>
-            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Web Development</span>
-          </div>
-          <a href="#">
-            <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white mb-2">FinPluse Expenses Tracker</h3>
+      <!-- FinPulse Card -->
+      <article class="reveal d1 group rounded-3xl overflow-hidden bg-white dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-accent/60 shadow-sm hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1.5 flex flex-col">
+        <div class="pf w-full h-56 sm:h-64 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+          <a href="https://nimesh-kavindya.github.io/FinPulse-Expense-Tracker/" target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+            <img src="FinPulse.png" alt="FinPulse Expenses Tracker" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
           </a>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-5">A comprehensive application for tracking expenses and managing personal finances.</p>
-          <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nl">View Project <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+        </div>
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs font-medium bg-orange-500/10 dark:bg-accent/10 text-accent border border-orange-500/20 dark:border-accent/20 px-3 py-1 rounded-full">App</span>
+              <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 px-3 py-1 rounded-full">Web Development</span>
+            </div>
+            <a href="https://nimesh-kavindya.github.io/FinPulse-Expense-Tracker/" target="_blank" rel="noopener noreferrer">
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">FinPulse Expenses Tracker</h3>
+            </a>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">A comprehensive application for tracking expenses and managing personal finances.</p>
+          </div>
+          <div>
+            <a href="https://nimesh-kavindya.github.io/FinPulse-Expense-Tracker/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-accent transition-colors">
+              View Project 
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
         </div>
       </article>
 
-      <article class="card-h reveal d2 group rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent">
-        <div class="pf w-full h-64 md:h-80">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="DevPulse For Developer Tool" loading="lazy">
-        </div>
-        <div class="p-6">
-          <div class="flex flex-wrap gap-2 mb-3">
-            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">Dev Tool</span>
-            <span class="text-xs bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Software Development</span>
-          </div>
-          <a href="#">
-            <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-1.5">DevPulse For Developer Tool</h3>
+      <!-- DevPulse Card -->
+      <article class="reveal d2 group rounded-3xl overflow-hidden bg-white dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-accent/60 shadow-sm hover:shadow-xl hover:shadow-accent/10 transition-all duration-300 hover:-translate-y-1.5 flex flex-col">
+        <div class="pf w-full h-56 sm:h-64 md:h-72 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+          <a href="https://nimesh-kavindya.github.io/devpulse-tools/" target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+            <img src="DevPulse.png" alt="DevPulse Developer Tool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
           </a>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A powerful developer tool designed to improve productivity and workflows.</p>
-          <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nl">View Project →</a>
+        </div>
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs font-medium bg-orange-500/10 dark:bg-accent/10 text-accent border border-orange-500/20 dark:border-accent/20 px-3 py-1 rounded-full">Dev Tool</span>
+              <span class="text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 px-3 py-1 rounded-full">Software Development</span>
+            </div>
+            <a href="https://nimesh-kavindya.github.io/devpulse-tools/" target="_blank" rel="noopener noreferrer">
+              <h3 class="font-display font-bold text-xl sm:text-2xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors">DevPulse Developer Tool</h3>
+            </a>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">A powerful developer tool designed to improve productivity and workflows.</p>
+          </div>
+          <div>
+            <a href="https://nimesh-kavindya.github.io/devpulse-tools/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-accent transition-colors">
+              View Project 
+              <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+          </div>
         </div>
       </article>
 
@@ -258,19 +491,19 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 </section>
 
 <!-- ═══ ABOUT ═══ -->
-<section id="about" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+<section id="about" class="section-fade py-24 bg-zinc-50 dark:bg-zinc-900/40">
   <div class="max-w-6xl mx-auto px-6">
     <div class="grid md:grid-cols-2 gap-16 items-center">
 
       <div class="reveal order-2 md:order-1">
         <div class="pf w-full aspect-square max-w-sm mx-auto rounded-3xl">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80" alt="Nimesh Kavindya" loading="lazy">
+          <img src="image.png" alt="Nimesh Kavindya" loading="lazy">
         </div>
       </div>
 
       <div class="order-1 md:order-2">
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">About me</p>
-        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">Hello, World!<br>I'm W. W. N. Kavindya 👋</h2>
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">Hello, World!<br>I'm Nimesh Kavindya 👋</h2>
         <p class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
           I am an Information Systems Undergraduate at the Sabaragamuwa University of Sri Lanka, passionate about bridging the gap between business needs and technological solutions.
         </p>
@@ -299,7 +532,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 </section>
 
 <!-- ═══ CONTACT ═══ -->
-<section id="contact" class="py-24">
+<section id="contact" class="section-fade py-24">
   <div class="max-w-6xl mx-auto px-6">
     <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-10 md:p-16 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
@@ -313,12 +546,27 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to UI/UX and frontend missions, short or long-term. Landing page, full product redesign, or just a second pair of eyes — let's talk.</p>
 
           <div class="reveal d3 flex flex-col gap-4">
-            <a href="mailto:contact@nimesh.dev" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <div class="relative inline-flex items-center gap-3">
+              <a href="mailto:nimesh2005uni@gmail.com" @click="copyEmail($event)" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors cursor-pointer">
+                <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </span>
+                <span class="text-sm">nimesh2005uni@gmail.com</span>
+                <span class="text-[11px] text-zinc-500 group-hover:text-zinc-300 bg-zinc-800/80 px-2 py-0.5 rounded border border-zinc-700/60 transition-colors ml-1 hidden sm:inline-block">Click to copy</span>
+              </a>
+              <span x-show="emailCopied" 
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 translate-y-1 scale-95"
+                    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                    x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+                    x-cloak 
+                    class="inline-flex items-center gap-1.5 bg-accent text-white text-xs font-semibold px-2.5 py-1 rounded-md shadow-lg">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                Copied!
               </span>
-              <span class="text-sm">contact@nimesh.dev</span>
-            </a>
+            </div>
             <a href="https://linkedin.com/in/nimesh-kavindya" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
               <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -335,7 +583,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         </div>
 
         <div class="reveal d2">
-          <form action="#" method="POST" novalidate>
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="2163c075-b5ed-49c9-85ff-2ed65fa4ac87">
             <div class="flex flex-col gap-4">
               <div class="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -373,14 +622,57 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 </main>
 
-<footer class="border-t border-zinc-100 dark:border-zinc-900">
-  <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="text-sm text-zinc-400">© <span id="yr"></span> Nimesh Kavindya. All rights reserved.</p>
-    <p class="text-xs text-zinc-500">Built with
-      <a href="https://tailwindcss.com" rel="noopener noreferrer" target="_blank" class="hover:text-accent transition-colors">Tailwind CSS</a>
-      &amp;
-      <a href="https://alpinejs.dev" rel="noopener noreferrer" target="_blank" class="hover:text-accent transition-colors">Alpine.js</a>
-    </p>
+<footer class="border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/50 transition-colors">
+  <div class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      
+      <!-- Brand & Status -->
+      <div class="md:col-span-2 space-y-4">
+        <a href="index.html" class="font-display font-bold text-xl text-zinc-900 dark:text-white tracking-tight inline-block">
+          Nimesh<span class="text-accent">.</span>
+        </a>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm leading-relaxed">
+          BSc (Hons) Information Systems Undergraduate at Sabaragamuwa University of Sri Lanka. Passionate about software development, web engineering, and system design.
+        </p>
+        <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs px-3.5 py-1.5 rounded-full font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Open for freelance work &amp; collaborations
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="font-display font-semibold text-xs text-zinc-900 dark:text-white mb-4 uppercase tracking-wider">Navigation</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#about" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">About</a></li>
+          <li><a href="#work" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Projects</a></li>
+          <li><a href="#services" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Services</a></li>
+          <li><a href="projects.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">All Work</a></li>
+          <li><a href="blog.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Blog</a></li>
+          <li><a href="#contact" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Social & Connect -->
+      <div>
+        <h4 class="font-display font-semibold text-xs text-zinc-900 dark:text-white mb-4 uppercase tracking-wider">Connect</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="https://github.com/nimesh-kavindya" target="_blank" rel="noopener noreferrer" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors inline-flex items-center gap-1">GitHub <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a></li>
+          <li><a href="https://linkedin.com/in/nimeshkavindya" target="_blank" rel="noopener noreferrer" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors inline-flex items-center gap-1">LinkedIn <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a></li>
+          <li><a href="mailto:nimesh2005uni@gmail.com" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">nimesh2005uni@gmail.com</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom copyright -->
+    <div class="pt-6 border-t border-zinc-200/80 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-zinc-500 dark:text-zinc-400">© <span id="yr"></span> Nimesh Kavindya. All rights reserved.</p>
+      <div class="flex items-center gap-6 text-xs text-zinc-500 dark:text-zinc-400">
+        <span>Based in Sri Lanka 🇱🇰</span>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-accent transition-colors inline-flex items-center gap-1 cursor-pointer">Back to top ↑</button>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -391,6 +683,8 @@ function app() {
     mm: false,
     sc: false,
     s: 'hero',
+    emailCopied: false,
+    copyTimer: null,
 
     init() {
       // dark mode
@@ -404,14 +698,39 @@ function app() {
         this.updateSection();
       }, { passive: true });
 
-      // reveal
+      // reveal & section fade-in
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal, .section-fade').forEach(el => io.observe(el));
 
       // year
       document.getElementById('yr').textContent = new Date().getFullYear();
+    },
+
+    copyEmail(e) {
+      if (e) e.preventDefault();
+      const email = 'nimesh2005uni@gmail.com';
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {}
+        document.body.removeChild(textArea);
+      }
+      this.emailCopied = true;
+      if (this.copyTimer) clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => {
+        this.emailCopied = false;
+      }, 2000);
     },
 
     updateSection() {
@@ -425,6 +744,105 @@ function app() {
     }
   }
 }
+
+// Interactive Mouse Glowing Particle & Spotlight Background
+(function initMouseGlow() {
+  const glow = document.getElementById('mouse-glow');
+  const canvas = document.getElementById('glow-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let targetX = mouseX;
+  let targetY = mouseY;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (glow) {
+      glow.style.setProperty('--mouse-x', `${e.clientX}px`);
+      glow.style.setProperty('--mouse-y', `${e.clientY}px`);
+    }
+  }, { passive: true });
+
+  // Floating ambient particles
+  const particleCount = window.innerWidth < 768 ? 20 : 40;
+  const particles = Array.from({ length: particleCount }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    size: Math.random() * 2.2 + 0.8,
+    baseAlpha: Math.random() * 0.35 + 0.1,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    color: Math.random() > 0.35 ? '255, 107, 43' : '255, 150, 90'
+  }));
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+    
+    // Smooth mouse lerp
+    mouseX += (targetX - mouseX) * 0.08;
+    mouseY += (targetY - mouseY) * 0.08;
+
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Draw mouse spotlight aura on canvas
+    const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 380);
+    if (isDark) {
+      grad.addColorStop(0, 'rgba(255, 107, 43, 0.14)');
+      grad.addColorStop(0.4, 'rgba(255, 143, 92, 0.04)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    } else {
+      grad.addColorStop(0, 'rgba(255, 107, 43, 0.09)');
+      grad.addColorStop(0.5, 'rgba(255, 143, 92, 0.02)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    }
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, 380, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Render particles
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+
+      // Distance to mouse
+      const dx = mouseX - p.x;
+      const dy = mouseY - p.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      let alpha = p.baseAlpha;
+      
+      // Glow brighter near mouse
+      if (dist < 220) {
+        alpha += (1 - dist / 220) * 0.55;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, ${Math.min(alpha, 0.85)})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(render);
+  }
+
+  render();
+})();
 </script>
 
 </body>

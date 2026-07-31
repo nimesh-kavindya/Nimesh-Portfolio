@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects — Eliott</title>
+  <title>Projects — Nimesh Kavindya</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet"/>
@@ -12,8 +12,10 @@
     *,*::before,*::after{box-sizing:border-box;}
     html{font-family:'DM Sans',sans-serif;}
     h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif;}
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1);}
-    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal{opacity:0;transform:translateY(32px) scale(0.96);filter:blur(2px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1),filter .75s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter;}
+    .reveal.visible, .reveal.in{opacity:1;transform:translateY(0) scale(1);filter:blur(0px);}
+    .section-fade{opacity:0;transform:translateY(38px) scale(0.98);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);will-change:opacity,transform;}
+    .section-fade.visible, .section-fade.in{opacity:1;transform:translateY(0) scale(1);}
     .nav-link{position:relative;}
     .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .25s cubic-bezier(.4,0,.2,1);}
     .nav-link:hover::after{width:100%;}
@@ -29,14 +31,77 @@
     .project-card{transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .2s;}
     .project-card:hover{transform:translateY(-4px);}
   </style>
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
 <body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-body antialiased">
+
+  <!-- ═══ PRELOADER ═══ -->
+  <div id="app-loader" class="fixed inset-0 z-[100] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
+    <div class="relative flex flex-col items-center">
+      <div class="relative w-20 h-20 flex items-center justify-center mb-5">
+        <div class="absolute inset-0 rounded-full bg-accent/25 animate-ping"></div>
+        <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-accent/40 shadow-xl shadow-accent/20 ring-4 ring-zinc-100 dark:ring-zinc-900">
+          <img src="image.png" alt="Nimesh Kavindya" class="w-full h-full object-cover">
+        </div>
+      </div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="font-display font-bold text-lg text-zinc-900 dark:text-white tracking-wide">Nimesh Kavindya</span>
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+      </div>
+      <div class="w-44 h-1.5 bg-zinc-100 dark:bg-zinc-800/80 rounded-full overflow-hidden p-0.5 shadow-inner">
+        <div id="loader-progress" class="h-full bg-accent rounded-full w-0 transition-all duration-500 ease-out"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const loader = document.getElementById('app-loader');
+    const progress = document.getElementById('loader-progress');
+    if (!loader || !progress) return;
+    
+    setTimeout(() => { if (progress) progress.style.width = '25%'; }, 50);
+    setTimeout(() => { if (progress) progress.style.width = '60%'; }, 400);
+    setTimeout(() => { if (progress) progress.style.width = '85%'; }, 900);
+
+    function finishLoader() {
+      if (!progress || !loader) return;
+      progress.style.width = '100%';
+      setTimeout(() => {
+        loader.classList.add('opacity-0', 'pointer-events-none', 'scale-105');
+        setTimeout(() => {
+          if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 550);
+      }, 350);
+    }
+
+    const minDuration = 1400;
+    const startTime = Date.now();
+
+    function triggerFinish() {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, minDuration - elapsed);
+      setTimeout(finishLoader, remaining);
+    }
+
+    if (document.readyState === 'complete') {
+      triggerFinish();
+    } else {
+      window.addEventListener('load', triggerFinish);
+      setTimeout(triggerFinish, 2000);
+    }
+  })();
+  </script>
 
   <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     :class="scrolled?'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5':'bg-transparent'">
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="index.html" class="font-display font-bold text-xl tracking-tight z-10">
-        <span class="text-zinc-900 dark:text-white">eli</span><span class="text-accent">ott</span>
+        <span class="text-zinc-900 dark:text-white">Nime</span><span class="text-accent">sh</span>
       </a>
       <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
         <li><a href="index.html#services" class="nav-link text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Services</a></li>
@@ -69,7 +134,7 @@
   </header>
 
   <main>
-    <section class="pt-36 pb-12 relative overflow-hidden">
+    <section class="section-fade pt-36 pb-12 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="max-w-6xl mx-auto px-6 relative z-10">
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Portfolio</p>
@@ -88,7 +153,7 @@
       </div>
     </section>
 
-    <section class="pb-24">
+    <section class="section-fade pb-24">
       <div class="max-w-6xl mx-auto px-6">
         <!--
           CORRECTIF : on itere sur TOUS les projets, x-show + x-transition gerent
@@ -107,26 +172,31 @@
               x-transition:leave="transition ease-in duration-200"
               x-transition:leave-start="opacity-100 scale-100"
               x-transition:leave-end="opacity-0 scale-95">
-              <article class="project-card group h-full rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-accent transition-colors">
-                <a :href="p.url" class="block photo-frame w-full h-52">
-                  <img :src="p.img" :alt="p.title" loading="lazy"/>
-                </a>
-                <div class="p-6">
-                  <div class="flex flex-wrap gap-2 mb-3">
-                    <template x-for="tag in p.tags" :key="tag">
-                      <span class="text-xs px-2.5 py-1 rounded-full"
-                        :class="tag === p.categoryLabel ? 'bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'"
-                        x-text="tag"></span>
-                    </template>
-                  </div>
-                  <a :href="p.url">
-                    <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors" x-text="p.title"></h3>
+              <article class="project-card group h-full rounded-3xl overflow-hidden bg-white dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 hover:border-accent/60 shadow-sm hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                  <a :href="p.url" :target="p.url.startsWith('http') ? '_blank' : '_self'" class="block photo-frame w-full h-52 sm:h-56 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                    <img :src="p.img" :alt="p.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
                   </a>
-                  <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4" x-text="p.desc"></p>
-                  <div class="flex items-center justify-between">
-                    <a :href="p.url" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white nav-link">View project →</a>
-                    <span class="text-xs text-zinc-400" x-text="p.year"></span>
+                  <div class="p-6 sm:p-7">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                      <template x-for="tag in p.tags" :key="tag">
+                        <span class="text-xs px-3 py-1 rounded-full"
+                          :class="tag === p.categoryLabel ? 'bg-orange-500/10 dark:bg-accent/10 text-accent border border-orange-500/20 dark:border-accent/20 font-medium' : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200/60 dark:border-zinc-700/60 font-medium'"
+                          x-text="tag"></span>
+                      </template>
+                    </div>
+                    <a :href="p.url" :target="p.url.startsWith('http') ? '_blank' : '_self'">
+                      <h3 class="font-display font-bold text-lg sm:text-xl text-zinc-900 dark:text-white mb-2 group-hover:text-accent transition-colors" x-text="p.title"></h3>
+                    </a>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4" x-text="p.desc"></p>
                   </div>
+                </div>
+                <div class="px-6 pb-6 sm:px-7 sm:pb-7 flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800/80">
+                  <a :href="p.url" :target="p.url.startsWith('http') ? '_blank' : '_self'" class="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-accent transition-colors">
+                    View project 
+                    <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                  </a>
+                  <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500" x-text="p.year"></span>
                 </div>
               </article>
             </div>
@@ -138,7 +208,7 @@
       </div>
     </section>
 
-    <section class="pb-24">
+    <section class="section-fade pb-24">
       <div class="max-w-6xl mx-auto px-6">
         <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-10 md:p-14 text-center relative overflow-hidden">
           <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -154,10 +224,57 @@
     </section>
   </main>
 
-  <footer class="border-t border-zinc-100 dark:border-zinc-900">
-    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-zinc-400">&copy; <span id="year"></span> Eliott. All rights reserved.</p>
-      <p class="text-xs text-zinc-500">Built with Tailwind CSS &amp; Alpine.js</p>
+  <footer class="border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/50 transition-colors">
+    <div class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        
+        <!-- Brand & Status -->
+        <div class="md:col-span-2 space-y-4">
+          <a href="index.html" class="font-display font-bold text-xl text-zinc-900 dark:text-white tracking-tight inline-block">
+            Nimesh<span class="text-accent">.</span>
+          </a>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm leading-relaxed">
+            BSc (Hons) Information Systems Undergraduate at Sabaragamuwa University of Sri Lanka. Passionate about software development, web engineering, and system design.
+          </p>
+          <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs px-3.5 py-1.5 rounded-full font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Open for freelance work &amp; collaborations
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h4 class="font-display font-semibold text-xs text-zinc-900 dark:text-white mb-4 uppercase tracking-wider">Navigation</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html#about" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">About</a></li>
+            <li><a href="index.html#work" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Projects</a></li>
+            <li><a href="index.html#services" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Services</a></li>
+            <li><a href="projects.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">All Work</a></li>
+            <li><a href="blog.html" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Blog</a></li>
+            <li><a href="index.html#contact" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social & Connect -->
+        <div>
+          <h4 class="font-display font-semibold text-xs text-zinc-900 dark:text-white mb-4 uppercase tracking-wider">Connect</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="https://github.com/nimesh-kavindya" target="_blank" rel="noopener noreferrer" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors inline-flex items-center gap-1">GitHub <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a></li>
+            <li><a href="https://linkedin.com/in/nimeshkavindya" target="_blank" rel="noopener noreferrer" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors inline-flex items-center gap-1">LinkedIn <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a></li>
+            <li><a href="mailto:nimesh2005uni@gmail.com" class="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">nimesh2005uni@gmail.com</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom copyright -->
+      <div class="pt-6 border-t border-zinc-200/80 dark:border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-zinc-500 dark:text-zinc-400">© <span id="year"></span> Nimesh Kavindya. All rights reserved.</p>
+        <div class="flex items-center gap-6 text-xs text-zinc-500 dark:text-zinc-400">
+          <span>Based in Sri Lanka 🇱🇰</span>
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-accent transition-colors inline-flex items-center gap-1 cursor-pointer">Back to top ↑</button>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -178,15 +295,15 @@
         ],
 
         allProjects: [
-          { id:1,  title:'Novu — SaaS Dashboard',  category:'saas',      categoryLabel:'SaaS',         tags:['SaaS','Figma','Tailwind'],           year:'2025', desc:'Complete redesign of a B2B notification platform. Reduced cognitive load by 40% and improved trial-to-paid conversion.',    img:'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=700&q=80',  url:'case-study.html' },
-          { id:2,  title:'Finlo — Fintech App',    category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Fintech','Alpine.js'], year:'2024', desc:'Marketing site and onboarding flow for a personal finance app targeting young professionals.',                              img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80', url:'case-study.html' },
-          { id:3,  title:'Orea — Creative Agency', category:'agency',    categoryLabel:'Agency',       tags:['Agency','Animation'],                year:'2024', desc:'Bold editorial site for a Paris-based branding studio. Scroll-driven animations and custom cursor.',                      img:'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&q=80', url:'case-study.html' },
-          { id:4,  title:'Vesta — Real Estate',    category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Real Estate'],         year:'2024', desc:'Conversion-focused landing page for a proptech startup entering the French market.',                                      img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80',  url:'case-study.html' },
-          { id:5,  title:'Arkio — SaaS Analytics', category:'saas',      categoryLabel:'SaaS',         tags:['SaaS','Dashboard','Figma'],           year:'2024', desc:'Data visualisation dashboard for a B2B analytics platform. Designed for clarity at high data density.',                img:'https://images.unsplash.com/photo-1581472723648-909f4851d4ae?w=700&q=80', url:'case-study.html' },
-          { id:6,  title:'Bloom — E-commerce',     category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','Shopify'],               year:'2023', desc:'Custom Shopify theme for a sustainable cosmetics brand. Mobile-first with high emphasis on product imagery.',           img:'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80',  url:'case-study.html' },
-          { id:7,  title:'Mira — Health App',      category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Health','Tailwind'],   year:'2023', desc:'App landing page for a mental wellness startup. Warm, accessible design with strong social proof.',                    img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80', url:'case-study.html' },
-          { id:8,  title:'Noto — Agency Rebrand',  category:'agency',    categoryLabel:'Agency',       tags:['Agency','Rebrand'],                  year:'2023', desc:'Full rebrand and website for a digital communications agency in Lyon.',                                                img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80', url:'case-study.html' },
-          { id:9,  title:'Kova — E-commerce',      category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','Figma'],                year:'2023', desc:'Product page redesign and checkout optimisation for a DTC furniture brand. Reduced cart abandonment by 18%.',         img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80',  url:'case-study.html' },
+          { id:1,  title:'FinPulse — Expenses Tracker',  category:'saas',      categoryLabel:'SaaS',         tags:['App','Finance','Web Tech'],          year:'2025', desc:'A comprehensive application for tracking expenses and managing personal finances.',    img:'FinPulse.png',  url:'https://nimesh-kavindya.github.io/FinPulse-Expense-Tracker/' },
+          { id:2,  title:'DevPulse — Developer Tool',   category:'saas',      categoryLabel:'SaaS',         tags:['Dev Tool','Software Dev'],            year:'2025', desc:'A powerful developer tool designed to improve productivity and workflows.',         img:'DevPulse.png', url:'https://nimesh-kavindya.github.io/devpulse-tools/' },
+          { id:3,  title:'Orea — Creative Agency', category:'agency',    categoryLabel:'Agency',       tags:['Agency','Animation'],                year:'2024', desc:'Bold editorial site for a branding studio. Scroll-driven animations and clean layout.',                      img:'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=700&q=80', url:'case-study.html' },
+          { id:4,  title:'Vesta — Real Estate',    category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Real Estate'],         year:'2024', desc:'Conversion-focused landing page for a proptech startup.',                                                 img:'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80',  url:'case-study.html' },
+          { id:5,  title:'Arkio — SaaS Analytics', category:'saas',      categoryLabel:'SaaS',         tags:['SaaS','Dashboard','Data'],            year:'2024', desc:'Data visualisation dashboard for a B2B analytics platform designed for high data density.',               img:'https://images.unsplash.com/photo-1581472723648-909f4851d4ae?w=700&q=80', url:'case-study.html' },
+          { id:6,  title:'Bloom — E-commerce',     category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','Web Tech'],              year:'2023', desc:'Custom theme for a sustainable brand with mobile-first emphasis on product imagery.',                     img:'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80',  url:'case-study.html' },
+          { id:7,  title:'Mira — Health App',      category:'landing',   categoryLabel:'Landing page', tags:['Landing page','Health','Tailwind'],   year:'2023', desc:'App landing page for a mental wellness startup. Warm, accessible design.',                             img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=700&q=80', url:'case-study.html' },
+          { id:8,  title:'Noto — Agency Rebrand',  category:'agency',    categoryLabel:'Agency',       tags:['Agency','Rebrand'],                  year:'2023', desc:'Full rebrand and website for a digital communications agency.',                                        img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80', url:'case-study.html' },
+          { id:9,  title:'Kova — E-commerce',      category:'ecommerce', categoryLabel:'E-commerce',   tags:['E-commerce','UI Design'],             year:'2023', desc:'Product page redesign and checkout optimisation for a furniture brand.',                                 img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80',  url:'case-study.html' },
         ],
 
         get visibleCount() {
@@ -211,7 +328,7 @@
                 }
               });
             }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            document.querySelectorAll('.reveal, .section-fade').forEach(el => obs.observe(el));
           });
         }
       }

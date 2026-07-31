@@ -7,8 +7,6 @@ I am an Information Systems Undergraduate at the Sabaragamuwa University of Sri 
 
 My main focus areas lie in Software Development, System Analysis, Data Analytics, and Web Technologies. I love building clean, efficient, and user-friendly digital products that solve real-world problems. When I'm not writing code or analyzing data workflows, I'm constantly learning new frameworks and exploring emerging tech trends.
 
-🚀 Driven by curiosity, powered by code.
-
 ## Tech Stack
 This website was built using:
 * **HTML5 & CSS3**
