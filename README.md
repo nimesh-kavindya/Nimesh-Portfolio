@@ -27,5 +27,4 @@ To view this portfolio locally:
 1. Clone this repository: `git clone https://github.com/nimesh-kavindya/Nimesh-Portfolio.git`
 2. Open `index.html` in your favorite web browser.
 
----
-*Template credit: Originally based on the Folio HTML template.*
+
