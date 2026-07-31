@@ -5,11 +5,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "npx tailwindcss -i input.css -o output.css --minify && node server.js",
     "start": "node server.js",
-    "build": "echo 'No build step required'"
+    "build": "npx tailwindcss -i input.css -o output.css --minify",
+    "lint": "node -c server.js"
   },
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
   }
 }

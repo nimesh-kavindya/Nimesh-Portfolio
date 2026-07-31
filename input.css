@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'PT Sans', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --color-accent: #FF6B2B;
+  --color-accent-light: #FF8F5C;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html, body {
+    font-family: 'DM Sans', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'PT Sans', sans-serif;
+  }
+  body {
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
