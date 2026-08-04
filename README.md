@@ -1,4 +1,4 @@
-# Nimesh Kavindya - Portfolio Website
+# Nimesh Kavindya - Portfolio Website 
 
 Welcome to the source code for my personal portfolio website!
 
@@ -19,10 +19,4 @@ This website was built using:
 * **Databases & Analytics:** MySQL, PostgreSQL, Excel Data Modeling
 * **Systems Engineering:** UML Diagramming, Object-Oriented Analysis & Design (OOAD), System Analysis
 * **UI/UX:** Figma
-
-## Getting Started
-To view this portfolio locally:
-1. Clone this repository: `git clone https://github.com/nimesh-kavindya/Nimesh-Portfolio.git`
-2. Open `index.html` in your favorite web browser.
-
 
