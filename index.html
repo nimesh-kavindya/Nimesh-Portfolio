@@ -149,7 +149,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 /* Interactive cursor glow background */
 #mouse-glow {
-  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 43, 0.12), rgba(255, 143, 92, 0.04) 40%, transparent 80%);
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 43, 0.1), rgba(255, 143, 92, 0.03) 40%, transparent 80%);
 }
 .dark #mouse-glow {
   background: radial-gradient(650px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 43, 0.18), rgba(168, 85, 247, 0.08) 45%, transparent 80%);
@@ -211,7 +211,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 </script>
 </head>
 
-<body class="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased relative">
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased relative">
 
 <!-- ═══ PRELOADER ═══ -->
 <div id="app-loader" class="fixed inset-0 z-[100] bg-white dark:bg-zinc-950 flex flex-col items-center justify-center transition-all duration-500 ease-in-out">
@@ -1388,7 +1388,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
       <!-- Leave a Testimonial Form Card (5 cols) -->
       <div class="lg:col-span-5 reveal d3">
-        <div class="bg-zinc-900 dark:bg-zinc-900/90 rounded-3xl p-7 sm:p-8 text-white relative overflow-hidden shadow-2xl">
+        <div class="bg-zinc-100/90 dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 rounded-3xl p-7 sm:p-8 text-zinc-900 dark:text-white relative overflow-hidden shadow-xl">
           <!-- Subtle Glow Accent -->
           <div class="absolute -top-12 -right-12 w-40 h-40 bg-accent/20 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
           
@@ -1397,8 +1397,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
               Feedback Form
             </div>
-            <h3 class="font-display font-bold text-2xl text-white tracking-tight">Leave a Testimonial</h3>
-            <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
+            <h3 class="font-display font-bold text-2xl text-zinc-900 dark:text-white tracking-tight">Leave a Testimonial</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
               Have you worked with Nimesh? Share your feedback or recommendation below.
             </p>
           </div>
@@ -1412,21 +1412,21 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
             <!-- Full Name -->
             <div>
-              <label for="t-name" class="block text-xs font-medium text-zinc-300 mb-1.5">Full Name <span class="text-accent">*</span></label>
-              <input type="text" id="t-name" name="name" required placeholder="e.g. John Doe" class="w-full bg-zinc-800/90 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+              <label for="t-name" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Full Name <span class="text-accent">*</span></label>
+              <input type="text" id="t-name" name="name" required placeholder="e.g. John Doe" class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
             </div>
 
             <!-- Designation & Company -->
             <div>
-              <label for="t-designation" class="block text-xs font-medium text-zinc-300 mb-1.5">Designation &amp; Company <span class="text-accent">*</span></label>
-              <input type="text" id="t-designation" name="designation_company" required placeholder="e.g. Senior Software Engineer at Tech Corp" class="w-full bg-zinc-800/90 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+              <label for="t-designation" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Designation &amp; Company <span class="text-accent">*</span></label>
+              <input type="text" id="t-designation" name="designation_company" required placeholder="e.g. Senior Software Engineer at Tech Corp" class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Rating (1-5) -->
               <div>
-                <label for="t-rating" class="block text-xs font-medium text-zinc-300 mb-1.5">Rating (1-5) <span class="text-accent">*</span></label>
-                <select id="t-rating" name="rating" required class="w-full bg-zinc-800/90 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+                <label for="t-rating" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Rating (1-5) <span class="text-accent">*</span></label>
+                <select id="t-rating" name="rating" required class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 rounded-xl px-3 py-2.5 text-xs text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
                   <option value="5" selected>5 ★★★★★ (Excellent)</option>
                   <option value="4">4 ★★★★☆ (Very Good)</option>
                   <option value="3">3 ★★★☆☆ (Good)</option>
@@ -1437,15 +1437,15 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
               <!-- Photo Link / Avatar URL (optional) -->
               <div>
-                <label for="t-avatar" class="block text-xs font-medium text-zinc-300 mb-1.5">Photo Link <span class="text-zinc-500 font-normal">(Optional)</span></label>
-                <input type="url" id="t-avatar" name="avatar_url" placeholder="https://..." class="w-full bg-zinc-800/90 rounded-xl px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+                <label for="t-avatar" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Photo Link <span class="text-zinc-400 dark:text-zinc-500 font-normal">(Optional)</span></label>
+                <input type="url" id="t-avatar" name="avatar_url" placeholder="https://..." class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 rounded-xl px-4 py-2.5 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
               </div>
             </div>
 
             <!-- Recommendation Message -->
             <div>
-              <label for="t-message" class="block text-xs font-medium text-zinc-300 mb-1.5">Recommendation Message <span class="text-accent">*</span></label>
-              <textarea id="t-message" name="message" rows="3" required placeholder="Write your testimonial or recommendation..." class="w-full bg-zinc-800/90 rounded-xl p-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors resize-none"></textarea>
+              <label for="t-message" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Recommendation Message <span class="text-accent">*</span></label>
+              <textarea id="t-message" name="message" rows="3" required placeholder="Write your testimonial or recommendation..." class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 rounded-xl p-3 text-xs text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors resize-none"></textarea>
             </div>
 
             <!-- Submit Button -->
@@ -1469,7 +1469,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- ═══ CONTACT ═══ -->
 <section id="contact" class="section-fade py-24">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="bg-zinc-900 dark:bg-zinc-900/90 rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-xl">
+    <div class="bg-zinc-100/90 dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800/80 rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-xl">
       <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
       <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
 
@@ -1477,17 +1477,17 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
         <div>
           <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
-          <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to UI/UX and frontend missions, short or long-term. Landing page, full product redesign, or just a second pair of eyes — let's talk.</p>
+          <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-5">Let's work<br>together</h2>
+          <p class="reveal d2 text-zinc-600 dark:text-zinc-400 leading-relaxed mb-8">I'm open to UI/UX and frontend missions, short or long-term. Landing page, full product redesign, or just a second pair of eyes — let's talk.</p>
 
           <div class="reveal d3 flex flex-col gap-4">
             <div class="relative inline-flex items-center gap-3">
-              <a href="mailto:nimesh2005uni@gmail.com?subject=Inquiry%20via%20Portfolio%20Website&body=Hi%20Nimesh,%0D%0A%0D%0AI%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20connect%20with%20you%20regarding%20an%20opportunity.%0D%0A%0D%0ABest%20regards," @click="copyEmail($event)" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors cursor-pointer">
-                <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+              <a href="mailto:nimesh2005uni@gmail.com?subject=Inquiry%20via%20Portfolio%20Website&body=Hi%20Nimesh,%0D%0A%0D%0AI%20saw%20your%20portfolio%20website%20and%20would%20like%20to%20connect%20with%20you%20regarding%20an%20opportunity.%0D%0A%0D%0ABest%20regards," @click="copyEmail($event)" class="group flex items-center gap-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer">
+                <span class="w-9 h-9 flex items-center justify-center bg-zinc-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </span>
-                <span class="text-sm">nimesh2005uni@gmail.com</span>
-                <span class="text-[11px] text-zinc-400 group-hover:text-zinc-200 bg-zinc-800 px-2 py-0.5 rounded transition-colors ml-1 hidden sm:inline-block">Click to copy</span>
+                <span class="text-sm font-medium">nimesh2005uni@gmail.com</span>
+                <span class="text-[11px] text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-200 bg-zinc-200/80 dark:bg-zinc-800 px-2 py-0.5 rounded transition-colors ml-1 hidden sm:inline-block">Click to copy</span>
               </a>
               <span x-show="emailCopied" 
                     x-transition:enter="transition ease-out duration-200"
@@ -1502,17 +1502,17 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
                 Copied!
               </span>
             </div>
-            <a href="https://www.linkedin.com/in/nimesh-kavindya" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+            <a href="https://www.linkedin.com/in/nimesh-kavindya" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+              <span class="w-9 h-9 flex items-center justify-center bg-zinc-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </span>
-              <span class="text-sm">linkedin.com/in/nimesh-kavindya</span>
+              <span class="text-sm font-medium">linkedin.com/in/nimesh-kavindya</span>
             </a>
-            <a href="https://github.com/nimesh-kavindya" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+            <a href="https://github.com/nimesh-kavindya" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">
+              <span class="w-9 h-9 flex items-center justify-center bg-zinc-200/80 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               </span>
-              <span class="text-sm">github.com/nimesh-kavindya</span>
+              <span class="text-sm font-medium">github.com/nimesh-kavindya</span>
             </a>
           </div>
         </div>
@@ -1523,27 +1523,27 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <div class="flex flex-col gap-4">
               <div class="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="fname" class="block text-xs font-medium text-zinc-400 mb-1.5">Name <span aria-hidden="true">*</span></label>
+                  <label for="fname" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Name <span aria-hidden="true" class="text-accent">*</span></label>
                   <input type="text" id="fname" name="name" placeholder="Jane Smith" required autocomplete="name"
-                    class="w-full bg-zinc-800 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+                    class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
                 </div>
                 <div>
-                  <label for="femail" class="block text-xs font-medium text-zinc-400 mb-1.5">Email <span aria-hidden="true">*</span></label>
+                  <label for="femail" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Email <span aria-hidden="true" class="text-accent">*</span></label>
                   <input type="email" id="femail" name="email" placeholder="jane@company.com" required autocomplete="email"
-                    class="w-full bg-zinc-800 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+                    class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
                 </div>
               </div>
               <div>
-                <label for="fsubject" class="block text-xs font-medium text-zinc-400 mb-1.5">Subject</label>
+                <label for="fsubject" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Subject</label>
                 <input type="text" id="fsubject" name="subject" placeholder="Project inquiry"
-                  class="w-full bg-zinc-800 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
+                  class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors">
               </div>
               <div>
-                <label for="fmessage" class="block text-xs font-medium text-zinc-400 mb-1.5">Message <span aria-hidden="true">*</span></label>
+                <label for="fmessage" class="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">Message <span aria-hidden="true" class="text-accent">*</span></label>
                 <textarea id="fmessage" name="message" rows="4" placeholder="Tell me about your project..." required
-                  class="w-full bg-zinc-800 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-accent transition-colors resize-none"></textarea>
+                  class="w-full bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 text-zinc-900 dark:text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent transition-colors resize-none"></textarea>
               </div>
-              <button type="submit" class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors cursor-pointer">
+              <button type="submit" class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors cursor-pointer shadow-lg shadow-accent/20">
                 Send message →
               </button>
             </div>
