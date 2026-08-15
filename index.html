@@ -348,15 +348,26 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         <p class="reveal d2 text-base sm:text-lg text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed max-w-xl mb-10">
           BSc ( Hons ) Information Systems Undergraduate at Sabaragamuwa University Of Sri Lanka <span class="text-accent font-semibold">|</span> Former School Leaver Intern at Bank of Ceylon <span class="text-accent font-semibold">|</span> UI/UX &amp; Creative Design Enthusiast
         </p>
-        <div class="reveal d3 flex flex-wrap gap-4">
-          <a href="#work" class="shimmer inline-flex items-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-sm">
-            View my work
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        <div class="reveal d3 flex flex-wrap items-center gap-3 sm:gap-4">
+          <!-- Button 1: Primary CTA (View my work) -->
+          <a href="#work" class="shimmer inline-flex items-center justify-center gap-2.5 h-[52px] px-7 sm:px-8 rounded-full bg-accent text-white font-semibold text-sm shadow-lg shadow-accent/25 hover:bg-accent/90 hover:shadow-xl hover:shadow-accent/35 transition-all duration-300 hover:-translate-y-0.5 group">
+            <span>View my work</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </a>
-          <a href="#contact" class="inline-flex items-center gap-2 bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors text-sm">Get in touch</a>
-          <a href="cv.pdf" download="Nimesh_Kavindya_CV.pdf" target="_blank" class="inline-flex items-center gap-2 bg-accent/10 hover:bg-accent/20 text-accent font-medium px-7 py-3.5 rounded-full transition-all text-sm group">
-            <svg class="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            Download CV
+
+          <!-- Button 2: Secondary CTA (Get in touch) -->
+          <a href="#contact" class="inline-flex items-center justify-center gap-2.5 h-[52px] px-7 sm:px-8 rounded-full bg-white/80 dark:bg-zinc-900/80 hover:bg-zinc-100 dark:hover:bg-zinc-800/90 text-zinc-900 dark:text-white font-semibold text-sm border border-zinc-300/90 dark:border-zinc-700/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+            Get in touch
+          </a>
+
+          <!-- Button 3: Tertiary/Accent CTA (Download CV) -->
+          <a href="cv.pdf" download="Nimesh_Kavindya_CV.pdf" target="_blank" class="inline-flex items-center justify-center gap-2.5 h-[52px] px-7 sm:px-8 rounded-full bg-accent/10 dark:bg-accent/15 hover:bg-accent/20 dark:hover:bg-accent/25 text-accent font-semibold text-sm border border-accent/25 dark:border-accent/35 transition-all duration-300 hover:-translate-y-0.5 group">
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span>Download CV</span>
           </a>
         </div>
       </div>
